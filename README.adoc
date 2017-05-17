@@ -1,0 +1,16 @@
+# DevFest Lille 2017 - Jenkins Pipeline & BlueOcean Workshop
+
+## How to generate the slides ?
+
+[source,bash]
+----
+docker-compose up # Generate HTML slides in ./docs/index.html
+docker-compose -f pdf.yml up # Generate PDF slides from HTML slides in ./docs/slides.pdf
+----
+
+You can then find the generated content in ./docs/
+
+// You can find the online presentation here:
+//
+// * HTML: link:https://[]
+// * PDF:  link:https://[]
