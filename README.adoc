@@ -10,7 +10,3 @@ docker-compose -f pdf.yml up # Generate PDF slides from HTML slides in ./docs/sl
 
 You can then find the generated content in ./docs/
 
-// You can find the online presentation here:
-//
-// * HTML: link:https://[]
-// * PDF:  link:https://[]
