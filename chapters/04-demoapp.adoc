@@ -93,7 +93,7 @@ mvn dependency:list -fn
 == Demo Application: Compile it
 
 * Maven goal is *`compile`*
-** Solves dependencies for build
+** Resolve build dependencies
 ** Process source code
 ** Generate classes
 * Content put in the *`./target`* folder:
