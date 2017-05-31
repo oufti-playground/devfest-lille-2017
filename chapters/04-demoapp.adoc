@@ -64,7 +64,7 @@ cat pom.xml
 
 == Demo Application: DevBox Tricks
 
-* Clear the window: `clean`
+* Clean the window: `clear`
 * Show command history: `history`
 * `CTRL + R`: search the command history interactively
 * `CTRL + C`: cancel current command and clean line buffer
