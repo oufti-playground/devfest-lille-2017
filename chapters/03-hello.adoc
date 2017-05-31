@@ -37,7 +37,8 @@ image::{imagedir}/damien.jpg[height="400",float="left"]
 +
 [source,subs="attributes",bash]
 ----
-vagrant box add {box-name} {box-url}
+vagrant box add {box-name} \
+  {box-url}
 ----
 
 * Initialize the VM project:
