@@ -97,7 +97,7 @@ image::./images/ci-howto.png[caption=CI,width=400]
 link:{jenkins-url}/blue/organizations/jenkins/pipeline-editor/[]
 ** Use `CTRL + S` (On Mac: `CMD +S`) to switch to textual version
 
-* Also, use the "Legacy" Pipeline Syntax Snippet Generator:
+* The "Legacy" Pipeline Syntax Snippet Generator can be useful:
 ** link:{jenkins-url}/job/demoapp/pipeline-syntax/[]
 
 == CI: Exercise - Your First Pipeline
