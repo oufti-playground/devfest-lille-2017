@@ -124,10 +124,10 @@ ls -l ./target/surefire-reports
 == Demo Application: Build it
 
 * Maven goal is *`package`*
-** Solves dependencies for packaging
-** Call `compile` and `test`
+** Execute `compile` and `test` goals
+** Resolve packaging dependencies
 ** Package the application as specified in `pom.xml`
-* Put the artifact (generated packages) in `./target`
+** Put the artifact (generated packages) in `./target`
 +
 [source,subs="attributes",bash]
 ----
