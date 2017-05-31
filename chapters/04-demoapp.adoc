@@ -108,8 +108,8 @@ ls -l ./target
 == Demo Application: Unit-Test it
 
 * Maven goal is *`test`*
-** Resolve unit test dependencies
 ** Execute `compile` goal
+** Resolve unit test dependencies
 ** Compile Unit Test classes
 ** Run Unit Test
 
