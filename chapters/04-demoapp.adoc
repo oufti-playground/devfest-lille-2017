@@ -127,7 +127,7 @@ ls -l ./target/surefire-reports
 ** Execute `compile` and `test` goals
 ** Resolve packaging dependencies
 ** Package the application as specified in `pom.xml`
-** Put the artifact (generated packages) in `./target`
+* The new artifact (generated packages) is stored in `./target`
 +
 [source,subs="attributes",bash]
 ----
