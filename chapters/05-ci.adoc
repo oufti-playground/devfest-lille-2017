@@ -83,7 +83,7 @@ image::./images/ci-howto.png[caption=CI,width=400]
 == CI: BlueOcean Pipeline Editor
 
 * Provides the *full* round trip with SCM
-* No Pipeline ? Follow the wizard (not Gandalf fool !)
+* No Pipeline ? Follow the wizard (not Gandalf, fool !)
 * Already have a Pipeline ? Edit, commit, run it
 
 * Needs a *compliant* SCM
