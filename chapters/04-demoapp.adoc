@@ -159,11 +159,11 @@ image::./images/test-integration.gif[height=300,float=right]
 == Demo Application: Integration Testing
 
 * Maven goal is *`verify`*
-** Solves dependencies for integration tests
-** Call `compile`, `test` and `package`
+** Resolve integration test dependencies
+** Execute `compile`, `test` and `package` goals
 ** Run Tests against the *packaged* application
 
-* Tests Reports put in the *`./target/failsafe-reports`* folder:
+* Tests Reports stored in the *`./target/failsafe-reports`* folder:
 +
 [source,subs="attributes",bash]
 ----
