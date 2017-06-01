@@ -109,7 +109,6 @@ ls -l ./target
 
 * Maven goal is *`test`*
 ** Execute `compile` goal
-** Resolve unit test dependencies
 ** Compile Unit Test classes
 ** Run Unit Test
 
@@ -125,7 +124,6 @@ ls -l ./target/surefire-reports
 
 * Maven goal is *`package`*
 ** Execute `compile` and `test` goals
-** Resolve packaging dependencies
 ** Package the application as specified in `pom.xml`
 * The new artifact (generated packages) is stored in `./target`
 +
