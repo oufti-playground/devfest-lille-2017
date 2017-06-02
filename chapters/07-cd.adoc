@@ -112,7 +112,7 @@ pipeline {
 * Goal: Run a Docker *Smoke Test* before Integration Tests
 ** Use the command `bats ./src/test/bats/docker.bats`
 *** It takes care of building and naming the docker resources
-** We do not need the archive the artifact unless Integration Test is unstable
+** We do not need to archive the jar unless Integration Test is unstable
 
 == CD: Solution - Docker Smoke Test
 
