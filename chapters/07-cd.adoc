@@ -110,7 +110,14 @@ pipeline {
 == CD: Exercise - Docker Smoke Test
 
 * Goal: Run a Docker *Smoke Test* before Integration Tests
-** Use the command `bats ./src/test/bats/docker.bats`
+** Use the `bats` test script
+*** command:
++
+[source,subs="attributes",bash]
+----
+/usr/local/bin/bats ./src/test/bats/docker.bats
+----
+
 *** It takes care of building and naming the docker resources
 ** We do not need to archive the jar unless Integration Test is unstable
 
