@@ -6,7 +6,7 @@ aka "CD"
 
 [quote]
 ____
-How long would it take to your organization to deploy a change that
+How long would it take your organization to deploy a change that
 involves just one single line of code?
 ____
 
