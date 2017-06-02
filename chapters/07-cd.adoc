@@ -223,7 +223,7 @@ pipeline {
         }
       }
     }
-    stage('Deploy') {
+    stage('Deliver') {
       agent {
         label 'docker'
       }
