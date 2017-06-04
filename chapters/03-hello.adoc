@@ -1,6 +1,10 @@
 
 = Hello
 
+== Whoami: Jean-Marc MEESSEN
+
+* Customer Success Manager @ CloudBees
+
 == Whoami: Damien DUPORTAL
 
 [.right.text-center]
@@ -19,11 +23,15 @@ image::{imagedir}/damien.jpg[height="400",float="left"]
 
 <sales_pitch>
 
-* Software at the Speed of Ideas
-* Hub of "Enterprise Jenkins and DevOps"
-* We provide:
+* Software at the "Speed of Ideas",
+Hub of "Enterprise Jenkins and DevOps", providing:
 ** Jenkins "Enterprise" Distribution
-** Services around Jenkins
+** Services around Jenkins </sales_pitch>
+
+* *Jenkins World 2017:* THE Event for Everything Jenkins and DevOps
+** August 28-31 2017, San Francisco, CA, USA
+** Register at link:http://www.jenkinsworld.com[] with the code
+*JWJMEESSEN* for 20% discount
 
 </sales_pitch>
 
