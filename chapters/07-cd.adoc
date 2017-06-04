@@ -400,11 +400,11 @@ pipeline {
 
 * *Goal:* Share Pipeline across your teams
 * We want to use
-*link:https://jenkins.io/doc/book/pipeline/shared-libraries/[Shared Libraries]*
+link:https://jenkins.io/doc/book/pipeline/shared-libraries/[*Shared Libraries*,window=_blank]
 * There is one autoconfigured named `deploy`
 * Use the annotation to load the Library, on master branch
 * Check the library
-link:https://github.com/oufti-playground/example-voting-app/blob/master/vars/deploy.groovy[here]
+link:https://github.com/oufti-playground/example-voting-app/blob/master/vars/deploy.groovy[here,window=_blank]
 
 == CD: Solution - Scaling Pipeline
 

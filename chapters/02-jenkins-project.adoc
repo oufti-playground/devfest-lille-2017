@@ -9,7 +9,7 @@ image::{imagedir}/butler-w-kk.png[width="150"]
 
 * #1 Continuous Integration and Delivery server
 * Created by Kohsuke Kawaguchi 12 years ago (Hudson)
-* An independent and active community (link:https://jenkins.io[])
+* An independent and active community (link:https://jenkins.io[jenkins.io,window=_blank])
 * 100,000 active installations
 * 300,000 Jenkins servers
 * 1,200+ plugins
@@ -35,9 +35,9 @@ image::{imagedir}/jenkins-background.jpg[background, size=cover]
 * slave ➞ agent
 * "Fire and forget"
 * "Modern Web":
-** link:https://jenkins.io[]
-** link:https://jenkins.io/docs[]
-** link:https://plugins.jenkins.io[]
+** link:https://jenkins.io[jenkins.io,window=_blank]
+** link:https://jenkins.io/docs[jenkins.io/docs,window=_blank]
+** link:https://plugins.jenkins.io[plugins.jenkins.io,window=_blank]
 
 
 == Jenkins 2 Goals

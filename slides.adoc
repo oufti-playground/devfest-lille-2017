@@ -21,11 +21,17 @@
 :external-port: 10000
 :demo-metal-port: 10080
 :demo-docker-port: 10081
+:admin-user: butler
 :homepage-url: http://{external-domain}:{external-port}
 :jenkins-url: {homepage-url}/jenkins
 :devbox-url: {homepage-url}/devbox
 :gitserver-url: {homepage-url}/gitserver
-
+:demoapp-repo-name: demoapp
+:demoapp-repo-web-url: {gitserver-url}/{admin-user}/{demoapp-repo-name}
+:demoapp-repo-git-url: {demoapp-repo-web-url}.git
+:demoapp-mb-job-name: {demoapp-repo-name}
+:demoapp-mb-job-url: {jenkins-url}/job/{demoapp-mb-job-name}
+:demoapp-mb-job-build-url: {demoapp-mb-job-url}/build?delay=0
 
 = Modern Jenkins: Continuous Delivery with Pipeline and BlueOcean
 
