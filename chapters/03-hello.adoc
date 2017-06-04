@@ -37,9 +37,17 @@ Hub of "Enterprise Jenkins and DevOps", providing:
 
 == Who are you ?
 
-== prepare lab environment
+== Prepare Lab Environment: Cloud VM Based
 
+* Allocate an instance for yourself:
+** Browse to this URL: link:TODO[]
+** Select a free instance and write your name next to it
 
+* Access your allocated instance:
+** Use the URL link:http://<INSTANCE_DNS>:{external-port}[]
+** Slides are stored within the instance
+
+== Prepare Lab Environment: Local VM Based
 
 * Requires VirtualBox >= 5.1.22
 ** link:http://virtualbox.org/[Virtualbox website,window=_blank]
@@ -65,7 +73,7 @@ vagrant init -m -f {box-name}
 ----
 
 
-== Let's Get Started
+== Let's Get Started: Local VM Based
 
 * Start the VM from the {box-name} folder:
 +
