@@ -46,7 +46,7 @@ image::{imagedir}/ci-howto.png[caption=CI,width=400]
 ** link:{jenkins-url}/blue[Direct link to BlueOcean GUI,window=_blank]
 ** _Or_ click on the top button "Open Blue Ocean"
 
-== CI: Creating Project
+== CI: Our First Pipeline Project
 
 * Create your 1st Pipeline:
 ** Stored in *Git*
@@ -75,13 +75,23 @@ link:{demoapp-mb-job-build-url}[{demoapp-mb-job-build-url},window=_blank]
 == CI: Starting with Pipelines
 
 * Pipeline-as-code: We need a `Jenkinsfile`
-** *Declarative* or *Scripted* ?
 
 * Where to start ?
 ** link:https://jenkins.io/doc/pipeline/tour/hello-world/[Getting Started with Pipeline,window=_blank]
 ** link:https://jenkins.io/doc/pipeline[Pipeline "Handbook",windows=blank]
 ** link:https://jenkins.io/doc/book/pipeline/syntax/[Pipeline Syntax Reference,windows=blank]
 ** link:https://jenkins.io/doc/pipeline/steps/[Pipeline Steps Reference,windows=blank]
+
+== CI: Declarative or Scripted Pipelines ?
+
+* Declarative
+** Easy syntax
+** Default syntax
+** Start with this one
+* Scripted
+** Original syntax (~3 years)
+** "Great Power == Great Responsibility"
+** Use it when Declarative starts to be *weird*
 
 == CI: BlueOcean Pipeline Editor
 
@@ -117,7 +127,7 @@ link:{demoapp-mb-job-url}[{demoapp-mb-job-url},window=_blank]
 
 == CI: Solution - Your first pipeline
 
-[source,subs="attributes",java]
+[source,subs="attributes",groovy]
 ----
 pipeline {
   agent any
@@ -133,14 +143,14 @@ pipeline {
 
 == CI: Exercise - Simple Build Pipeline
 
-* Exercise: Implement a simple build pipeline demoapp
+* Exercise: Implement a simple build pipeline for demoapp
 * We want 4 stages, for the 4 Maven goals:
-** `clean compile`, `test`, `package`, `verify`
+** `compile`, `test`, `package`, `verify`
 * We need to build on the `maven` agent
 
 == CI: Solution - Simple Build Pipeline
 
-[source,subs="attributes",java]
+[source,subs="attributes",groovy]
 ----
 pipeline {
   agent {
@@ -164,7 +174,7 @@ pipeline {
         sh 'mvn package'
       }
     }
-    stage('Verify') {
+    stage('Integration Tests') {
       steps {
         sh 'mvn verify'
       }
@@ -180,7 +190,7 @@ pipeline {
 ** `Verify`: Run Integration Tests
 
 * We also want to *archive* the generated `jar` file
-** Only if the build is in sucess
+** Only if the build is successful
 
 * _Clues_: Keywords `post` + `success` (not in Editor),
 and `archiveArtifacts`
@@ -188,7 +198,7 @@ and `archiveArtifacts`
 == CI: Solution - Artifacts
 
 
-[source,subs="attributes",java]
+[source,subs="attributes",groovy]
 ----
 pipeline {
   agent {
@@ -199,7 +209,7 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        sh 'mvn clean compile test package'
+        sh 'mvn package'
       }
     }
     stage('Verify') {
@@ -230,7 +240,7 @@ pipeline {
 
 == CI: Solution - Integration Tests Reports
 
-[source,subs="attributes",java]
+[source,subs="attributes",groovy]
 ----
 pipeline {
   agent {
@@ -271,7 +281,7 @@ unstable *only* due to the `Verify` stage
 
 == CI: Solution - All Tests Reports
 
-[source,subs="attributes",java]
+[source,subs="attributes",groovy]
 ----
 pipeline {
   agent {
