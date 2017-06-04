@@ -1,0 +1,172 @@
+
+= Demo Application
+
+== Demo Application: Why ?
+
+* *Goal:* Illustrate a Software Supply Chain with a demo application
+* *Challenge:* So many languages/framework/toolchains
+* *Solution:*
+** Opinionated demo application (language, tooling, etc.)
+** Put everyone on same page with initial exercise
+
+== Demo Application: What ?
+
+* Web application
+* Homepage show a link to `/greeting` endpoint
+* Endpoint `/greeting`: greets the world
+* Provides the parameter *name*: greet the person
+** `/greeting?name=Butler` prints `Hello Butler`
+
+== Demo Application: Technical Stack
+
+* This is the link:https://spring.io/guides/gs/spring-boot/[Spring Boot Starter]
+* Language: *Java* (OpenJDK 8)
+* Toolchain: *Maven* (Maven >= 3.3)
+* Source code stored inside a local *Git* repository
+
+== Demo Application: How ?
+
+== Demo Application: Access it
+
+* Open the local *GitServer*:
+** link:{gitserver-url}[]
+* *Sign In* using the top-right button
+** User is `butler`, same for the password
+* Browse to the repository. Either:
+** Click on *Explore* -> *butler/demoapp*
+** or direct link: link:{gitserver-url}/butler/demoapp[]
+
+== Demo Application: Check it
+
+* Maven configuration: `pom.xml`
+* Application Source code: `src/main/java/`
+* Application Templates/HTML: `src/main/resources/`
+* Application Test code: `src/test/java`
+
+== Demo Application: Get it
+
+* Open the *DevBox*, the Web based command line:
+** link:{devbox-url}[]
+** WebSockets must be authorized
+* Copy the demoapp repository URL from *GitServer*
+* Run the following commands:
++
+[source,subs="attributes",bash]
+----
+# Get the git repository
+git clone {gitserver-url}/butler/demoapp.git
+# Browse to the local repository
+cd ./demoapp
+# Check source code
+ls -l
+cat pom.xml
+----
+
+== Demo Application: DevBox Tricks
+
+* Clean the window: `clear`
+* Show command history: `history`
+* `CTRL + R`: search the command history interactively
+* `CTRL + C`: cancel current command and clean line buffer
+* `CTRL + A`: jump to beginning of line
+* `CTRL + E`: jump to end of line
+
+== Demo Application: Maven
+
+* Maven TL;DR:
+** Provide a standardized *workflow*
+** `pom.xml` describe the application
+* Maven Command line : `mvn`, expects *goals* (workflow steps)
++
+[source,subs="attributes",bash]
+----
+mvn dependency:list
+----
+
+* Can have *flags* (configuration on the fly)
++
+[source,subs="attributes",bash]
+----
+mvn dependency:list -fn
+----
+
+== Demo Application: Compile it
+
+* Maven goal is *`compile`*
+** Resolve build dependencies
+** Process source code
+** Generate classes
+* Content put in the *`./target`* folder:
++
+[source,subs="attributes",bash]
+----
+mvn compile
+ls -l ./target
+----
+
+
+== Demo Application: Unit-Test it
+
+* Maven goal is *`test`*
+** Execute `compile` goal
+** Compile Unit Test classes
+** Run Unit Test
+
+* Tests Reports put in the *`./target/surefire-reports`* folder:
++
+[source,subs="attributes",bash]
+----
+mvn test
+ls -l ./target/surefire-reports
+----
+
+== Demo Application: Build it
+
+* Maven goal is *`package`*
+** Execute `compile` and `test` goals
+** Package the application as specified in `pom.xml`
+* The new artifact (generated packages) is stored in `./target`
++
+[source,subs="attributes",bash]
+----
+mvn package
+ls -lrh ./target/
+----
+
+== Demo Application: Run it
+
+* Spring Boot demo is run as an *"Über-Jar"*
+* You only need the java CLI from a JRE:
++
+[source,subs="attributes",bash]
+----
+java -jar ./target/demoapp.jar
+----
+* Check the application on the {demo-metal-port} port:
+** link:http://{external-domain}:{demo-metal-port}[]
+
+== Demo Application: A note about Tests
+
+* Unit / Integration Test ?
+** Bedtime reading: https://martinfowler.com/tags/testing.html
+
+image::./images/test-unit.png[height=300,float=left]
+
+image::./images/test-integration.gif[height=300,float=right]
+
+== Demo Application: Integration Testing
+
+* Maven goal is *`verify`*
+** Execute `compile`, `test` and `package` goals
+** Resolve integration test dependencies
+** Run Tests against the *packaged* application
+
+* Tests Reports stored in the *`./target/failsafe-reports`* folder:
++
+[source,subs="attributes",bash]
+----
+mvn verify
+ls -l ./target/failsafe-reports
+----
+
+== That's all folks !
