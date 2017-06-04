@@ -17,7 +17,7 @@ image::{imagedir}/damien.jpg[height="400",float="left"]
 
 == CloudBees
 
-<sell>
+<sales_pitch>
 
 * Software at the Speed of Ideas
 * Hub of "Enterprise Jenkins and DevOps"
@@ -25,19 +25,32 @@ image::{imagedir}/damien.jpg[height="400",float="left"]
 ** Jenkins "Enterprise" Distribution
 ** Services around Jenkins
 
-</sell>
+</sales_pitch>
 
 == Who are you ?
 
-== Requirements
+== prepare lab environment
 
-* VirtualBox >= 5.1.18
-* Vagrant >= 1.9.1
+* Requires VirtualBox >= 5.1.18
++
+[source,subs="attributes",bash]
+----
+vboxmanage --version
+----
+
+* Requires Vagrant >= 1.9.1
++
+[source,subs="attributes",bash]
+----
+vagrant version
+----
+
 * From a Terminal, download the VM (1 time, ~1Gb):
 +
 [source,subs="attributes",bash]
 ----
-vagrant box add {box-name} {box-url}
+vagrant box add {box-name} \
+  {box-url}
 ----
 
 * Initialize the VM project:

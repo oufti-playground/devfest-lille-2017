@@ -24,7 +24,7 @@ image::{imagedir}/jenkins-worldwide-stats.png[title=http://stats.jenkins.io/,flo
 == Jenkins is the CD Orchestrator
 image::{imagedir}/jenkins-background.jpg[background, size=cover]
 
-image::{imagedir}/jenkins-cd-orchestrator.jpg[caption="CD orchestrator",width="600"]
+image::{imagedir}/jenkins-cd-orchestrator.jpg[caption="CD orchestrator",width="900"]
 
 
 == Why Jenkins 2

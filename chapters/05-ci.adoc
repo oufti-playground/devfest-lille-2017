@@ -83,7 +83,7 @@ image::./images/ci-howto.png[caption=CI,width=400]
 == CI: BlueOcean Pipeline Editor
 
 * Provides the *full* round trip with SCM
-* No Pipeline ? Follow the wizard (not Gandalf fool !)
+* No Pipeline ? Follow the wizard (not Gandalf, fool !)
 * Already have a Pipeline ? Edit, commit, run it
 
 * Needs a *compliant* SCM
@@ -97,12 +97,12 @@ image::./images/ci-howto.png[caption=CI,width=400]
 link:{jenkins-url}/blue/organizations/jenkins/pipeline-editor/[]
 ** Use `CTRL + S` (On Mac: `CMD +S`) to switch to textual version
 
-* Also, use the "Legacy" Pipeline Syntax Snippet Generator:
+* The "Legacy" Pipeline Syntax Snippet Generator could be useful:
 ** link:{jenkins-url}/job/demoapp/pipeline-syntax/[]
 
 == CI: Exercise - Your First Pipeline
 
-* Use the BO editor and *Gitserver*
+* Use the *BlueOcean Pipeline Editor* and *Gitserver*
 * Create a Pipeline that have a single stage "Hello"
 * This stage have 1 step that prints the message "Hello World"
 * Copy/Paste this Pipeline in a new file `Jenkinsfile` on the repository root

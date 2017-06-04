@@ -6,7 +6,7 @@ aka "CD"
 
 [quote]
 ____
-How long would it take to your organization to deploy a change that
+How long would it take your organization to deploy a change that
 involves just one single line of code?
 ____
 
@@ -110,9 +110,16 @@ pipeline {
 == CD: Exercise - Docker Smoke Test
 
 * Goal: Run a Docker *Smoke Test* before Integration Tests
-** Use the command `bats ./src/test/bats/docker.bats`
+** Use the `bats` test script
+*** command:
++
+[source,subs="attributes",bash]
+----
+/usr/local/bin/bats ./src/test/bats/docker.bats
+----
+
 *** It takes care of building and naming the docker resources
-** We do not need the archive the artifact unless Integration Test is unstable
+** We do not need to archive the jar unless Integration Test is unstable
 
 == CD: Solution - Docker Smoke Test
 
@@ -216,7 +223,7 @@ pipeline {
         }
       }
     }
-    stage('Deploy') {
+    stage('Deliver') {
       agent {
         label 'docker'
       }

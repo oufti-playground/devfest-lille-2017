@@ -64,7 +64,7 @@ cat pom.xml
 
 == Demo Application: DevBox Tricks
 
-* Clear the window: `clean`
+* Clean the window: `clear`
 * Show command history: `history`
 * `CTRL + R`: search the command history interactively
 * `CTRL + C`: cancel current command and clean line buffer
@@ -93,7 +93,7 @@ mvn dependency:list -fn
 == Demo Application: Compile it
 
 * Maven goal is *`compile`*
-** Solves dependencies for build
+** Resolve build dependencies
 ** Process source code
 ** Generate classes
 * Content put in the *`./target`* folder:
@@ -108,8 +108,7 @@ ls -l ./target
 == Demo Application: Unit-Test it
 
 * Maven goal is *`test`*
-** Solves dependencies for unit test
-** Call `compile`
+** Execute `compile` goal
 ** Compile Unit Test classes
 ** Run Unit Test
 
@@ -124,10 +123,9 @@ ls -l ./target/surefire-reports
 == Demo Application: Build it
 
 * Maven goal is *`package`*
-** Solves dependencies for packaging
-** Call `compile` and `test`
+** Execute `compile` and `test` goals
 ** Package the application as specified in `pom.xml`
-* Put the artifact (generated packages) in `./target`
+* The new artifact (generated packages) is stored in `./target`
 +
 [source,subs="attributes",bash]
 ----
@@ -159,11 +157,11 @@ image::./images/test-integration.gif[height=300,float=right]
 == Demo Application: Integration Testing
 
 * Maven goal is *`verify`*
-** Solves dependencies for integration tests
-** Call `compile`, `test` and `package`
+** Execute `compile`, `test` and `package` goals
+** Resolve integration test dependencies
 ** Run Tests against the *packaged* application
 
-* Tests Reports put in the *`./target/failsafe-reports`* folder:
+* Tests Reports stored in the *`./target/failsafe-reports`* folder:
 +
 [source,subs="attributes",bash]
 ----
