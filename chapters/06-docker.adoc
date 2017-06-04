@@ -66,15 +66,30 @@ docker run -P -d my_image:1.0.0
 
 == Docker: Running Docker Container
 
-* Using *Devbox*, from the demoapp work directory's root
-** Check running containers with `docker ps`
-** Run and test the container with this command:
+* Check running containers with `docker ps`
+* Run and test the container with this command:
 +
 [source,subs="attributes",bash]
 ----
-docker run -p {demo-docker-port}:8080 -d demoapp:latest
+docker run -p {demo-docker-port}:8080 -d my_image:1.0.0
 # Then open http://{external-domain}:{demo-docker-port}[]
+----
+* Check again running containers with `docker ps`
+* Stop it with `docker stop <Container ID>`
+* Check again running containers with `docker ps`
 
+== Docker: Build and Smoke Test
+
+* It is a lot of command !
+* What about testing the Docker Image ?
+* The demoapp contains a testing system:
+** It use link:https://github.com/sstephenson/bats[Bats]
+** Files: `./src/test/bats/*.bats`
+** Command:
+
+[source,subs="attributes",bash]
+----
+/usr/local/bin/bats ./src/test/bats/docker.bats
 ----
 
-** Stop it with `docker stop <Container ID>`
+== That's all folks !
