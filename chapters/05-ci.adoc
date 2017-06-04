@@ -38,7 +38,7 @@ image::{imagedir}/ci-howto.png[caption=CI,width=400]
 * Access your Jenkins instance:
 ** link:{jenkins-url}[{jenkins-url},window=_blank]
 ** *Log in*  as the user *`butler`* (password is the same)
-** It is the "Legacy UI"
+** This is the "Jenkins Classic GUI"
 
 == CI: Jenkins BlueOcean
 
@@ -98,9 +98,12 @@ link:{demoapp-mb-job-build-url}[{demoapp-mb-job-build-url},window=_blank]
 * Git is not supported (yet): let's *hack*
 ** Open the hidden *BlueOcean Pipeline Editor*:
 link:{jenkins-url}/blue/organizations/jenkins/pipeline-editor/[Direct URL,window=_blank]
-** Use `CTRL + S` (On Mac: `CMD +S`) to switch to textual version
+** Use `CTRL + S` (On Mac: `CMD +S`) to switch to/from textual version
 
-* The "Legacy" Pipeline Syntax Snippet Generator could be useful:
+* The Pipeline Syntax Snippet Generator is useful:
+** Dynamic generation based on the installed plugins
+** A pipeline job is required: check the left menu icon on
+link:{demoapp-mb-job-url}[{demoapp-mb-job-url},window=_blank]
 ** link:{demoapp-mb-job-url}/pipeline-syntax/[{demoapp-mb-job-url}/pipeline-syntax/,window=_blank]
 
 == CI: Exercise - Your First Pipeline
