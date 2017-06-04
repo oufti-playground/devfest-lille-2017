@@ -5,7 +5,7 @@ aka "CI"
 
 == CI: Why ?
 
-image::./images/big-bugs.jpg[caption="Big Bugs",width=500,link=http://cartoontester.blogspot.be/2010/01/big-bugs.html]
+image::{imagedir}/big-bugs.jpg[caption="Big Bugs",width=500,link=http://cartoontester.blogspot.be/2010/01/big-bugs.html]
 
 [quote, Martin Fowler]
 ____
@@ -29,7 +29,7 @@ ____
 * Integrate code *often*, at least daily, to make integration a *non-event*
 * *Continuously* build and integrate, with a *feedback loop*
 
-image::./images/ci-howto.png[caption=CI,width=400]
+image::{imagedir}/ci-howto.png[caption=CI,width=400]
 
 == Continuous Integration with Jenkins
 

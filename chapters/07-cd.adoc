@@ -30,7 +30,7 @@ ____
 
 Both are always confused:
 
-image::./images/continuous-depl-vs-delivery.jpg[width=600]
+image::{imagedir}/continuous-depl-vs-delivery.jpg[width=600]
 
 
 == CD: How ?

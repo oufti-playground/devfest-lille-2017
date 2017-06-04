@@ -4,15 +4,15 @@ to the Rescue
 
 == Docker: Why ?
 
-image::./images/the-matrix-from-hell.png[]
+image::{imagedir}/the-matrix-from-hell.png[]
 
 == Docker: What ?
 
-image::./images/container_vs_vm.jpg[]
+image::{imagedir}/container_vs_vm.jpg[]
 
 == Docker How ?
 
-image::./images/docker-how.png[]
+image::{imagedir}/docker-how.png[]
 
 == Docker: Dockerfile
 

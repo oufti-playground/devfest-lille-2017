@@ -152,9 +152,9 @@ java -jar ./target/demoapp.jar
 * Unit / Integration Test ?
 ** Bedtime reading: https://martinfowler.com/tags/testing.html
 
-image::./images/test-unit.png[height=300,float=left]
+image::{imagedir}/test-unit.png[height=300,float=left]
 
-image::./images/test-integration.gif[height=300,float=right]
+image::{imagedir}/test-integration.gif[height=300,float=right]
 
 == Demo Application: Integration Testing
 
