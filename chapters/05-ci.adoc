@@ -5,7 +5,7 @@ aka "CI"
 
 == CI: Why ?
 
-image::./images/big-bugs.jpg[caption="Big Bugs",width=500,link=http://cartoontester.blogspot.be/2010/01/big-bugs.html]
+image::{imagedir}/big-bugs.jpg[caption="Big Bugs",width=500,link=http://cartoontester.blogspot.be/2010/01/big-bugs.html]
 
 [quote, Martin Fowler]
 ____
@@ -29,30 +29,30 @@ ____
 * Integrate code *often*, at least daily, to make integration a *non-event*
 * *Continuously* build and integrate, with a *feedback loop*
 
-image::./images/ci-howto.png[caption=CI,width=400]
+image::{imagedir}/ci-howto.png[caption=CI,width=400]
 
 == Continuous Integration with Jenkins
 
 == CI: Accessing Jenkins
 
 * Access your Jenkins instance:
-** link:{jenkins-url}[]
+** link:{jenkins-url}[{jenkins-url},window=_blank]
 ** *Log in*  as the user *`butler`* (password is the same)
-** It is the "Legacy UI"
+** This is the "Jenkins Classic GUI"
 
 == CI: Jenkins BlueOcean
 
 * Switch to BlueOcean, the new UI
-** Direct link: link:{jenkins-url}/blue[]
+** link:{jenkins-url}/blue[Direct link to BlueOcean GUI,window=_blank]
 ** _Or_ click on the top button "Open Blue Ocean"
 
-== CI: Creating Project
+== CI: Our First Pipeline Project
 
 * Create your 1st Pipeline:
 ** Stored in *Git*
 ** Fetch URL from the *Gitserver*
-*** Direct link: link:{gitserver-url}/butler/demoapp.git[]
-** Add a *User/password* credential (`butler` / `butler`)
+*** link:{demoapp-repo-git-url}[Direct link to Git repository,window=_blank]
+** Add a *User/password* credential (`{admin-user}` / `{admin-user}`)
 ** Pipeline is empty (for now): no `Jenkinsfile`
 
 == CI: Fast feedback with Webhooks
@@ -65,20 +65,33 @@ image::./images/ci-howto.png[caption=CI,width=400]
 == CI: Add a Gogs Webhooks
 
 * From repo. in *Gitserver* -> *Settings* -> *Webhooks*
-** Direct link: {gitserver-url}/butler/demoapp/settings/hooks
-* Add a *Gogs* webhook:
-** Payload URL: link:{jenkins-url}/job/demoapp/build?delay=0[]
+** link:{demoapp-repo-web-url}/settings/hooks[Direct link to Repository Webhook Settings,window=_blank]
+* Add a new webhook:
+** Type: *Gogs* (not Slack)
+** Payload URL:
+link:{demoapp-mb-job-build-url}[{demoapp-mb-job-build-url},window=_blank]
 ** When should this webhook be triggered?: *I need everything*
 
 == CI: Starting with Pipelines
 
 * Pipeline-as-code: We need a `Jenkinsfile`
-** *Declarative* or *Scripted* ?
 
 * Where to start ?
-** Documentation: link:https://jenkins.io/doc/pipeline[]
-** Getting Started: link:https://jenkins.io/doc/pipeline/tour/hello-world/[]
-** Syntax Reference: link:https://jenkins.io/doc/book/pipeline/syntax/[]
+** link:https://jenkins.io/doc/pipeline/tour/hello-world/[Getting Started with Pipeline,window=_blank]
+** link:https://jenkins.io/doc/pipeline[Pipeline "Handbook",windows=blank]
+** link:https://jenkins.io/doc/book/pipeline/syntax/[Pipeline Syntax Reference,windows=blank]
+** link:https://jenkins.io/doc/pipeline/steps/[Pipeline Steps Reference,windows=blank]
+
+== CI: Declarative or Scripted Pipelines ?
+
+* Declarative
+** Easy syntax
+** Default syntax
+** Start with this one
+* Scripted
+** Original syntax (~3 years)
+** "Great Power == Great Responsibility"
+** Use it when Declarative starts to be *weird*
 
 == CI: BlueOcean Pipeline Editor
 
@@ -92,13 +105,16 @@ image::./images/ci-howto.png[caption=CI,width=400]
 
 == CI: Use the Pipeline Editor
 
-* Let's *hack*: open the *BlueOcean Pipeline Editor*
-** Direct (hidden) URL:
-link:{jenkins-url}/blue/organizations/jenkins/pipeline-editor/[]
-** Use `CTRL + S` (On Mac: `CMD +S`) to switch to textual version
+* Git is not supported (yet): let's *hack*
+** Open the hidden *BlueOcean Pipeline Editor*:
+link:{jenkins-url}/blue/organizations/jenkins/pipeline-editor/[Direct URL,window=_blank]
+** Use `CTRL + S` (On Mac: `CMD +S`) to switch to/from textual version
 
-* The "Legacy" Pipeline Syntax Snippet Generator could be useful:
-** link:{jenkins-url}/job/demoapp/pipeline-syntax/[]
+* The Pipeline Syntax Snippet Generator is useful:
+** Dynamic generation based on the installed plugins
+** A pipeline job is required: check the left menu icon on
+link:{demoapp-mb-job-url}[{demoapp-mb-job-url},window=_blank]
+** link:{demoapp-mb-job-url}/pipeline-syntax/[{demoapp-mb-job-url}/pipeline-syntax/,window=_blank]
 
 == CI: Exercise - Your First Pipeline
 
@@ -107,11 +123,11 @@ link:{jenkins-url}/blue/organizations/jenkins/pipeline-editor/[]
 * This stage have 1 step that prints the message "Hello World"
 * Copy/Paste this Pipeline in a new file `Jenkinsfile` on the repository root
 * A build will kick off immediately:
-** link:{jenkins-url}/blue/organizations/jenkins/demoapp/activity[demoapp Activity Dashboard]
+** link:{jenkins-url}/blue/organizations/jenkins/{demoapp-repo-name}/activity[{demoapp-repo-name} Activity Dashboard,window=_blank]
 
 == CI: Solution - Your first pipeline
 
-[source,subs="attributes",java]
+[source,subs="attributes",groovy]
 ----
 pipeline {
   agent any
@@ -127,14 +143,14 @@ pipeline {
 
 == CI: Exercise - Simple Build Pipeline
 
-* Exercise: Implement a simple build pipeline demoapp
+* Exercise: Implement a simple build pipeline for demoapp
 * We want 4 stages, for the 4 Maven goals:
-** `clean compile`, `test`, `package`, `verify`
+** `compile`, `test`, `package`, `verify`
 * We need to build on the `maven` agent
 
 == CI: Solution - Simple Build Pipeline
 
-[source,subs="attributes",java]
+[source,subs="attributes",groovy]
 ----
 pipeline {
   agent {
@@ -158,7 +174,7 @@ pipeline {
         sh 'mvn package'
       }
     }
-    stage('Verify') {
+    stage('Integration Tests') {
       steps {
         sh 'mvn verify'
       }
@@ -174,7 +190,7 @@ pipeline {
 ** `Verify`: Run Integration Tests
 
 * We also want to *archive* the generated `jar` file
-** Only if the build is in sucess
+** Only if the build is successful
 
 * _Clues_: Keywords `post` + `success` (not in Editor),
 and `archiveArtifacts`
@@ -182,7 +198,7 @@ and `archiveArtifacts`
 == CI: Solution - Artifacts
 
 
-[source,subs="attributes",java]
+[source,subs="attributes",groovy]
 ----
 pipeline {
   agent {
@@ -193,7 +209,7 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        sh 'mvn clean compile test package'
+        sh 'mvn package'
       }
     }
     stage('Verify') {
@@ -224,7 +240,7 @@ pipeline {
 
 == CI: Solution - Integration Tests Reports
 
-[source,subs="attributes",java]
+[source,subs="attributes",groovy]
 ----
 pipeline {
   agent {
@@ -265,7 +281,7 @@ unstable *only* due to the `Verify` stage
 
 == CI: Solution - All Tests Reports
 
-[source,subs="attributes",java]
+[source,subs="attributes",groovy]
 ----
 pipeline {
   agent {

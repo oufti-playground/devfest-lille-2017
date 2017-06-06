@@ -19,7 +19,8 @@
 
 == Demo Application: Technical Stack
 
-* This is the link:https://spring.io/guides/gs/spring-boot/[Spring Boot Starter]
+* This is the
+link:https://spring.io/guides/gs/spring-boot/[Spring Boot Starter,window=_blank]
 * Language: *Java* (OpenJDK 8)
 * Toolchain: *Maven* (Maven >= 3.3)
 * Source code stored inside a local *Git* repository
@@ -29,12 +30,13 @@
 == Demo Application: Access it
 
 * Open the local *GitServer*:
-** link:{gitserver-url}[]
+** link:{gitserver-url}[{gitserver-url},window=_blank]
 * *Sign In* using the top-right button
 ** User is `butler`, same for the password
 * Browse to the repository. Either:
 ** Click on *Explore* -> *butler/demoapp*
-** or direct link: link:{gitserver-url}/butler/demoapp[]
+** or Direct URL:
+link:{demoapp-repo-web-url}[{demoapp-repo-web-url},window=_blank]
 
 == Demo Application: Check it
 
@@ -46,7 +48,7 @@
 == Demo Application: Get it
 
 * Open the *DevBox*, the Web based command line:
-** link:{devbox-url}[]
+** link:{devbox-url}[{devbox-url},window=_blank]
 ** WebSockets must be authorized
 * Copy the demoapp repository URL from *GitServer*
 * Run the following commands:
@@ -143,16 +145,16 @@ ls -lrh ./target/
 java -jar ./target/demoapp.jar
 ----
 * Check the application on the {demo-metal-port} port:
-** link:http://{external-domain}:{demo-metal-port}[]
+** link:http://{external-domain}:{demo-metal-port}[Demoapp on "Metal",window=_blank]
 
 == Demo Application: A note about Tests
 
 * Unit / Integration Test ?
 ** Bedtime reading: https://martinfowler.com/tags/testing.html
 
-image::./images/test-unit.png[height=300,float=left]
+image::{imagedir}/test-unit.png[height=300,float=left]
 
-image::./images/test-integration.gif[height=300,float=right]
+image::{imagedir}/test-integration.gif[height=300,float=right]
 
 == Demo Application: Integration Testing
 

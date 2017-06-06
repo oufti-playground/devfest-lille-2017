@@ -5,29 +5,49 @@ image::{imagedir}/jenkins-background.jpg[background, size=cover]
 == Meet Jenkins
 image::{imagedir}/jenkins-background.jpg[background, size=cover]
 
-image::{imagedir}/butler-w-kk.png[width="150"]
+[quote]
+--
+Jenkins is an open source automation server which enables developers
+around the world to reliably build, test, and deploy their software.
+--
+
+image::{imagedir}/jenkins-logo.png[caption="Jenkins Logo"]
+
+== What is Jenkins ?
+image::{imagedir}/jenkins-background.jpg[background, size=cover]
+
+image::{imagedir}/samurai_kk.jpg[float=left,align=left]
 
 * #1 Continuous Integration and Delivery server
-* Created by Kohsuke Kawaguchi 12 years ago (Hudson)
-* An independent and active community (link:https://jenkins.io[])
-* 100,000 active installations
-* 300,000 Jenkins servers
-* 1,200+ plugins
+* Created by Kohsuke Kawaguchi in 2006
+** Original project: "Hudson", renamed "Jenkins" in 2011
+* An *independent* and *active* community (link:http://jenkins.io[jenkins.io,window=_blank])
+** 500+ releases to date
+** 150,000+ active installations
+** 300,000+ Jenkins servers
+** 1,200+ plugins
 
-== Jenkins Popularity
+== Jenkins Popularity: Through the Roof
 image::{imagedir}/jenkins-background.jpg[background, size=cover]
 
-image::{imagedir}/jenkins-on-ci-radar.png[title=http://www.infoq.com/research/ci-server,float=left,caption=]
+image::{imagedir}/ci-usage-rebel-lab-2016.jpg[width=600]
 
-image::{imagedir}/jenkins-worldwide-stats.png[title=http://stats.jenkins.io/,float=right,caption=]
+[.footer]
+Source: link:http://pages.zeroturnaround.com/RebelLabs-Developer-Productivity-Report-2016.html[RebelLabs Tools and Technologies Leaderboard 2016,window=_blank]
 
-== Jenkins is the CD Orchestrator
+== Worldwide Adoption
+
+image::{imagedir}/jenkins-worldwide-adoption.jpg[]
+
+[.footer]
+Source: link:http://stats.jenkins.io[stats.jenkins.io,window=_blank]
+
+== Jenkins in 2016
 image::{imagedir}/jenkins-background.jpg[background, size=cover]
 
-image::{imagedir}/jenkins-cd-orchestrator.jpg[caption="CD orchestrator",width="900"]
+2016 was the year of Jenkins 2
 
-
-== Why Jenkins 2
+== Why Jenkins 2 ?
 image::{imagedir}/jenkins-background.jpg[background, size=cover]
 
 * Jenkins 1 is more than 12 years old
@@ -36,9 +56,9 @@ image::{imagedir}/jenkins-background.jpg[background, size=cover]
 * slave ➞ agent
 * "Fire and forget"
 * "Modern Web":
-** link:https://jenkins.io[]
-** link:https://jenkins.io/docs[]
-** link:https://plugins.jenkins.io[]
+** link:https://jenkins.io[jenkins.io,window=_blank]
+** link:https://jenkins.io/docs[jenkins.io/docs,window=_blank]
+** link:https://plugins.jenkins.io[plugins.jenkins.io,window=_blank]
 
 
 == Jenkins 2 Goals
@@ -54,6 +74,9 @@ image::{imagedir}/jenkins-background.jpg[background, size=cover]
 ** `Jenkinsfile` stored in SCM
 **  Groovy DSL: "Code your Pipeline"
 
+== Jenkins in 2017 ?
+image::{imagedir}/jenkins-background.jpg[background, size=cover]
+
 == Jenkins in 2017
 image::{imagedir}/jenkins-background.jpg[background, size=cover]
 
@@ -64,4 +87,4 @@ image::{imagedir}/jenkins-background.jpg[background, size=cover]
 * BlueOcean
 ** Brand new GUI
 ** Written in ReactJS
-** Opiniated
+** Opinionated

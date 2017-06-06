@@ -30,7 +30,7 @@ ____
 
 Both are always confused:
 
-image::./images/continuous-depl-vs-delivery.jpg[width=600]
+image::{imagedir}/continuous-depl-vs-delivery.jpg[width=600]
 
 
 == CD: How ?
@@ -47,101 +47,31 @@ your application’s build lifecycle process
 ** Not a `jar` file
 ** But a Docker image
 
-== CD: Exercise - Generate Docker Image
+== CD: Exercise - Docker Test Suite
 
-* Goal: Add a stage named "Docker" for building the Docker image
-** *Before* Integration Test
-** This steps should use the name `demoapp:latest`
-** *Challenge:* we need the `jar` file
+* Goal: Run the *Docker Test Suite*
+** Using a single stage named "Docker",
+*before* Integration Tests
+** Using the agent labelled `docker`
+** *Challenge:* we need the `jar` file at "Docker time"
+** We do not need to archive artifact at the end,
+unless Integration Test is unstable
 
 * _Clues:_ Keywords `stash` and `unstash`
 
-== CD: Solution - Generate Docker Image
+== CD: Solution - Docker Test Suite
 
-[source,subs="attributes",java]
+[source,subs="attributes",groovy]
 ----
 pipeline {
-  agent {
-    node {
-      label 'maven'
-    }
-  }
+  agent { node { label 'maven' }}
   stages {
     stage('Build') {
       steps {
-        sh 'mvn clean compile test package'
+        sh 'mvn package'
         stash(name: 'app', includes: 'target/demoapp.jar')
       }
-      post {
-        always {
-          junit '**/target/surefire-reports/*.xml'
-        }
-      }
-    }
-    stage('Docker') {
-      agent {
-        label 'docker'
-      }
-      steps {
-        unstash 'app'
-        sh 'docker build -t demoapp:latest ./'
-      }
-    }
-    stage('Verify') {
-      steps {
-        sh 'mvn verify -fn'
-        junit '**/target/failsafe-reports/*.xml'
-      }
-      post {
-        unstable {
-          archiveArtifacts 'target/demoapp.jar'
-        }
-      }
-    }
-  }
-  post {
-    success {
-      archiveArtifacts 'target/demoapp.jar'
-    }
-  }
-}
-----
-
-== CD: Exercise - Docker Smoke Test
-
-* Goal: Run a Docker *Smoke Test* before Integration Tests
-** Use the `bats` test script
-*** command:
-+
-[source,subs="attributes",bash]
-----
-/usr/local/bin/bats ./src/test/bats/docker.bats
-----
-
-*** It takes care of building and naming the docker resources
-** We do not need to archive the jar unless Integration Test is unstable
-
-== CD: Solution - Docker Smoke Test
-
-[source,subs="attributes",java]
-----
-pipeline {
-  agent {
-    node {
-      label 'maven'
-    }
-  }
-  stages {
-    stage('Build') {
-      steps {
-        sh 'mvn clean compile test package'
-        stash(name: 'app', includes: 'target/demoapp.jar')
-      }
-      post {
-        always {
-          junit '**/target/surefire-reports/*.xml'
-        }
-      }
+      post { always { junit '**/target/surefire-reports/*.xml' }}
     }
     stage('Docker') {
       agent {
@@ -157,16 +87,7 @@ pipeline {
         sh 'mvn verify -fn'
         junit '**/target/failsafe-reports/*.xml'
       }
-      post {
-        unstable {
-          archiveArtifacts 'target/demoapp.jar'
-        }
-      }
-    }
-  }
-  post {
-    success {
-      archiveArtifacts 'target/demoapp.jar'
+      post { unstable { archiveArtifacts 'target/demoapp.jar' }}
     }
   }
 }
@@ -174,69 +95,47 @@ pipeline {
 
 == CD: Exercise - Approval and Delivery
 
-* Goal: Manual Approval for Delivery
-* Add a stage named `Delivery` that will:
-** Ask for a manual validation, after Integration Tests
-** And will push the Docker Image to the registry `localhost:5000`
+* Goal: We want a Human Approval *before* Delivery
+* Add 2 stages named `Approval` and `Delivery`:
+** `Approval` will ask for a manual validation,
+after Integration Tests
+** `Delivery` will tag and push the Docker Image
+to the Docker registry at the URL `localhost:5000`
 
 * _Clues:_ Keyword `input`
 
 == CD: Solution - Approval and Delivery
 
-[source,subs="attributes",java]
+[source,subs="attributes",groovy]
 ----
 pipeline {
-  agent {
-    node {
-      label 'maven'
-    }
-  }
+  agent { node { label 'maven' }}
   stages {
     stage('Build') {
-      steps {
-        sh 'mvn clean compile test package'
-        stash(name: 'app', includes: 'target/demoapp.jar')
-      }
-      post {
-        always {
-          junit '**/target/surefire-reports/*.xml'
-        }
-      }
+      steps { sh 'mvn package'
+        stash(name: 'app', includes: 'target/demoapp.jar') }
+      post { always { junit '**/target/surefire-reports/*.xml' }}
     }
     stage('Docker') {
-      agent {
-        label 'docker'
-      }
-      steps {
-        unstash 'app'
-        sh '/usr/local/bin/bats ./src/test/bats/docker.bats'
-      }
+      agent { label 'docker' }
+      steps { unstash 'app'
+        sh '/usr/local/bin/bats ./src/test/bats/docker.bats' }
     }
     stage('Verify') {
-      steps {
-        sh 'mvn verify -fn'
-        junit '**/target/failsafe-reports/*.xml'
-      }
-      post {
-        unstable {
-          archiveArtifacts 'target/demoapp.jar'
-        }
-      }
+      steps { sh 'mvn verify -fn'
+        junit '**/target/failsafe-reports/*.xml' }
+      post { unstable { archiveArtifacts 'target/demoapp.jar' }}
     }
-    stage('Deliver') {
-      agent {
-        label 'docker'
-      }
+    stage('Approval') {
+      agent none
+      steps { input 'Is it OK to deploy demoapp ?' }
+    }
+    stage('Deploy') {
+      agent { label 'docker' }
       steps {
-        input 'Is it OK to deploy demoapp ?'
         sh 'docker tag demoapp localhost:5000/demoapp:latest'
         sh 'docker push localhost:5000/demoapp:latest'
       }
-    }
-  }
-  post {
-    success {
-      archiveArtifacts 'target/demoapp.jar'
     }
   }
 }
@@ -249,148 +148,41 @@ pipeline {
 ** Use the agent allocation to build and run builds within a Docker container
 ** Use the `Dockerfile.build` from the repository
 
-* _Clues:_ Keyword `agent any`, `agent { dockerfile }`
+* _Clues:_ Keywords `agent none`, `agent { dockerfile ... label ...}`
 
 == CD: Solution - Building with Docker
 
-[source,subs="attributes",java]
+[source,subs="attributes",groovy]
 ----
-pipeline {
-  agent any
+pipeline { agent none
   stages {
     stage('Build') {
-      agent {
-        dockerfile {
-          filename 'Dockerfile.build'
-        }
-      }
-      steps {
-        sh 'mvn clean compile test package'
-        stash(name: 'app', includes: 'target/demoapp.jar')
-      }
-      post {
-        always {
-          junit '**/target/surefire-reports/*.xml'
-        }
-      }
+      agent { dockerfile { filename 'Dockerfile.build'
+        label 'docker'}}
+      steps { sh 'mvn package'
+        stash(name: 'app', includes: 'target/demoapp.jar') }
+      post { always { junit '**/target/surefire-reports/*.xml' }}
     }
     stage('Docker') {
-      agent {
-        label 'docker'
-      }
-      steps {
-        unstash 'app'
-        sh '/usr/local/bin/bats ./src/test/bats/docker.bats'
-      }
+      agent { label 'docker' }
+      steps { unstash 'app'
+        sh '/usr/local/bin/bats ./src/test/bats/docker.bats' }
     }
     stage('Verify') {
-      agent {
-        dockerfile {
-          filename 'Dockerfile.build'
-        }
-      }
-      steps {
-        sh 'mvn verify -fn'
-        junit '**/target/failsafe-reports/*.xml'
-      }
-      post {
-        unstable {
-          archiveArtifacts 'target/demoapp.jar'
-        }
-      }
+      agent { dockerfile { filename 'Dockerfile.build'
+        label 'docker'}}
+      steps { sh 'mvn verify -fn'
+        junit '**/target/failsafe-reports/*.xml' }
+      post { unstable { archiveArtifacts 'target/demoapp.jar' }}
+    }
+    stage('Approval') {
+      agent none
+      steps { input 'Is it OK to deploy demoapp ?' }
     }
     stage('Deploy') {
-      agent {
-        label 'docker'
-      }
-      steps {
-        input 'Is it OK to deploy demoapp ?'
-        sh 'docker tag demoapp localhost:5000/demoapp:latest'
-        sh 'docker push localhost:5000/demoapp:latest'
-      }
-    }
-  }
-  post {
-    success {
-      archiveArtifacts 'target/demoapp.jar'
-    }
-  }
-}
-----
-
-== CD: Exercise - Parallel Stages
-
-* Goal: Run Stages in parallels to gain time
-** We can safely run Docker Smoke and Integration Tests in parallel
-** To specify a specific agent, use Scripted Pipeline Block
-and the node allocation
-
-* _Clues:_ Keyword `parallel`, `script`, `node`
-
-== CD: Solution - Parallel Stages
-
-[source,subs="attributes",java]
-----
-pipeline {
-  agent any
-  stages {
-    stage('Build') {
-      agent {
-        dockerfile {
-          filename 'Dockerfile.build'
-        }
-      }
-      steps {
-        sh 'mvn clean compile test package'
-        stash(name: 'app', includes: 'target/demoapp.jar')
-      }
-      post {
-        always {
-          junit '**/target/surefire-reports/*.xml'
-        }
-      }
-    }
-    stage('Tests') {
-      steps {
-        parallel (
-          "Integration Tests": {
-            script {
-              node('maven') {
-                sh 'mvn verify -fn'
-                junit '**/target/failsafe-reports/*.xml'
-              }
-            }
-          },
-          "Docker": {
-            script {
-              node('docker') {
-                unstash 'app'
-                sh '/usr/local/bin/bats ./src/test/bats/docker.bats'
-              }
-            }
-          }
-        )
-      }
-      post {
-        unstable {
-          archiveArtifacts 'target/demoapp.jar'
-        }
-      }
-    }
-    stage('Deploy') {
-      agent {
-        label 'docker'
-      }
-      steps {
-        input 'Is it OK to deploy demoapp ?'
-        sh 'docker tag demoapp localhost:5000/demoapp:latest'
-        sh 'docker push localhost:5000/demoapp:latest'
-      }
-    }
-  }
-  post {
-    success {
-      archiveArtifacts 'target/demoapp.jar'
+      agent { label 'docker' }
+      steps { sh 'docker tag demoapp localhost:5000/demoapp:latest'
+        sh 'docker push localhost:5000/demoapp:latest' }
     }
   }
 }
@@ -406,73 +198,91 @@ pipeline {
 * Check the library
 link:https://github.com/oufti-playground/example-voting-app/blob/master/vars/deploy.groovy[here]
 
+* _Clues:_ Keywords `@Library`, `script`
+
 == CD: Solution - Scaling Pipeline
 
-[source,subs="attributes",java]
+[source,subs="attributes",groovy]
 ----
 @Library('deploy@master') _
-
-pipeline {
-  agent {
-	label 'docker'
-	}
+pipeline { agent none
   stages {
     stage('Build') {
-      agent {
-        dockerfile {
-          filename 'Dockerfile.build'
-        }
-      }
-      steps {
-        sh 'mvn clean compile test package'
-        stash(name: 'app', includes: 'target/demoapp.jar')
-      }
-      post {
-        always {
-          junit '**/target/surefire-reports/*.xml'
-        }
-      }
+      agent { dockerfile { filename 'Dockerfile.build'
+        label 'docker'}}
+      steps { sh 'mvn package'
+        stash(name: 'app', includes: 'target/demoapp.jar') }
+      post { always { junit '**/target/surefire-reports/*.xml' }}
     }
-    stage('Tests') {
-      steps {
-        parallel (
-          "Integration Tests": {
-            script {
-              node('maven') {
-                sh 'mvn verify -fn'
-                junit '**/target/failsafe-reports/*.xml'
-              }
-            }
-          },
-          "Docker": {
-            script {
-              node('docker') {
-                unstash 'app'
-                sh '/usr/local/bin/bats ./src/test/bats/docker.bats'
-              }
-            }
-          }
-        )
-      }
-      post {
-        unstable {
-          archiveArtifacts 'target/demoapp.jar'
-        }
-      }
+    stage('Docker') {
+      agent { label 'docker' }
+      steps { unstash 'app'
+        sh '/usr/local/bin/bats ./src/test/bats/docker.bats' }
+    }
+    stage('Verify') {
+      agent { dockerfile { filename 'Dockerfile.build'
+        label 'docker'}}
+      steps { sh 'mvn verify -fn'
+        junit '**/target/failsafe-reports/*.xml' }
+      post { unstable { archiveArtifacts 'target/demoapp.jar' }}
     }
     stage('Deploy') {
-      agent {
-        label 'docker'
-      }
+      agent none
       steps {
-        deploy 'demoapp'
-        echo 'Delivery Done !'
+        script {
+          deploy 'demoapp'
+        }
       }
     }
   }
-  post {
-    success {
-      archiveArtifacts 'target/demoapp.jar'
+}
+----
+
+
+== CD: Exercise - Parallel Stages
+
+* Goal: Run Stages in parallels to gain time
+** We can safely run Docker Smoke and Integration Tests in parallel
+** To specify a specific agent, use Scripted Pipeline Block
+and the node allocation
+
+* _Clues:_ Keywords `parallel`, `script`, `node`
+
+* *WARNING:* link:https://issues.jenkins-ci.org/browse/JENKINS-41334[]
+** I'm cheating in the solution below
+
+== CD: Solution - Parallel Stages
+
+[source,subs="attributes",groovy]
+----
+@Library('deploy@master') _
+pipeline { agent none
+  stages {
+    stage('Build') { agent { dockerfile { filename 'Dockerfile.build'
+        label 'docker'}}
+      steps { sh 'mvn package'
+        stash(name: 'app', includes: 'target/demoapp.jar') }
+      post { always { junit '**/target/surefire-reports/*.xml' }}
+    }
+    stage('Tests') { agent { dockerfile { filename 'Dockerfile.build'
+        label 'docker'
+        args '--network=docker_default'}}
+      environment { DOCKER_HOST='tcp://docker-service:2375' }
+      steps { parallel (
+        "Integration Tests": {
+          sh 'mvn verify -fn'
+          junit '**/target/failsafe-reports/*.xml'
+        },
+        "Docker": {
+          unstash 'app'
+          sh 'bats ./src/test/bats/docker.bats'
+        }
+      )}
+      post { unstable { archiveArtifacts 'target/demoapp.jar' }}
+    }
+    stage('Deploy') {
+      agent none
+      steps { script { deploy 'demoapp' }}
     }
   }
 }

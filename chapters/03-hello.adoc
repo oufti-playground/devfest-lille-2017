@@ -1,6 +1,10 @@
 
 = Hello
 
+== Whoami: Jean-Marc MEESSEN
+
+* Customer Success Manager @ CloudBees
+
 == Whoami: Damien DUPORTAL
 
 [.right.text-center]
@@ -19,31 +23,37 @@ image::{imagedir}/damien.jpg[height="400",float="left"]
 
 <sales_pitch>
 
-* Software at the Speed of Ideas
-* Hub of "Enterprise Jenkins and DevOps"
-* We provide:
+* Software at the "Speed of Ideas",
+Hub of "Enterprise Jenkins and DevOps", providing:
 ** Jenkins "Enterprise" Distribution
 ** Services around Jenkins
+
+* *Jenkins World 2017:* THE Event for Everything Jenkins and DevOps
+** August 28-31 2017, San Francisco, CA, USA
+** Register at link:http://www.jenkinsworld.com[Jenkins World 2017 Website,window=_blank] with the code
+*JWJMEESSEN* for 20% discount
 
 </sales_pitch>
 
 == Who are you ?
 
-== prepare lab environment
+== Prepare Lab Environment: Cloud VM Based
 
-* Requires VirtualBox >= 5.1.18
-+
-[source,subs="attributes",bash]
-----
-vboxmanage --version
-----
+* Allocate an instance for yourself:
+** Browse to this URL: link:TODO[]
+** Select a free instance and write your name next to it
 
-* Requires Vagrant >= 1.9.1
-+
-[source,subs="attributes",bash]
-----
-vagrant version
-----
+* Access your allocated instance:
+** Use the URL link:http://<INSTANCE_DNS>:{external-port}[]
+** Slides are stored within the instance
+
+== Prepare Lab Environment: Local VM Based
+
+* Requires VirtualBox >= 5.1.22
+** link:http://virtualbox.org/[Virtualbox website,window=_blank]
+
+* Requires Vagrant >= 1.9.4
+** link:https://www.vagrantup.com/[Vagrant website,window=_blank]
 
 * From a Terminal, download the VM (1 time, ~1Gb):
 +
@@ -53,7 +63,7 @@ vagrant box add {box-name} \
   {box-url}
 ----
 
-* Initialize the VM project:
+* From the same Terminal, initialize the VM project:
 +
 [source,subs="attributes",bash]
 ----
@@ -63,7 +73,7 @@ vagrant init -m -f {box-name}
 ----
 
 
-== Let's Get Started
+== Let's Get Started: Local VM Based
 
 * Start the VM from the {box-name} folder:
 +
@@ -78,4 +88,4 @@ $ vagrant up
 
 * Access your instance homepage:
 +
-link:{homepage-url}[]
+link:{homepage-url}[{homepage-url},window=_blank]
